@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kindred — Augmentation clinic</title>
+<meta name="description" content="Kindred fits neural, optical and limb augmentations that work with your body, not against it.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --steel:#13202c; --steel-2:#1b2d3d; --plate:#243a4e; --chrome:#c9d6e0;
+  --ice:#59d6ff; --flesh:#f0b89c; --signal:#ff4f7b; --text:#e8eef3; --muted:#9db0c0;
+  --display:"Chakra Petch",system-ui,sans-serif; --body:"IBM Plex Sans",system-ui,sans-serif;
+  --pad:clamp(1.25rem,5vw,4rem);
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{background:var(--steel);color:var(--text);font:400 1.0625rem/1.6 var(--body);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--ice);outline-offset:3px}
+h1,h2,h3{font-family:var(--display);line-height:1.05;letter-spacing:-.01em}
+h1{font-size:clamp(2.6rem,7vw,5.5rem);font-weight:700}
+h2{font-size:clamp(1.9rem,4vw,3rem);font-weight:700;margin-bottom:1rem}
+h3{font-size:1.25rem;font-weight:500}
+p{max-width:60ch}
+section{padding:clamp(4rem,9vw,7rem) var(--pad)}
+.wrap{max-width:1180px;margin:auto}
+.btn{display:inline-block;font:500 1rem var(--display);padding:.9rem 1.6rem;text-decoration:none;border:0;cursor:pointer;
+  background:var(--ice);color:var(--steel);clip-path:polygon(0 0,calc(100% - 14px) 0,100% 14px,100% 100%,14px 100%,0 calc(100% - 14px));transition:background .2s}
+.btn:hover{background:#fff}
+.btn.ghost{background:var(--plate);color:var(--text)}
+.btn.ghost:hover{background:var(--steel-2);box-shadow:inset 0 0 0 1px var(--ice)}
+
+/* nav */
+header{position:sticky;top:0;z-index:20;background:rgba(19,32,44,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--plate)}
+nav{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.9rem var(--pad);max-width:1180px;margin:auto}
+.logo{font:700 1.4rem var(--display);text-decoration:none;display:flex;align-items:center;gap:.5rem}
+.logo i{width:14px;height:14px;background:var(--ice);display:inline-block;border-radius:50% 0 50% 0}
+nav ul{display:flex;gap:1.6rem;list-style:none;padding:0}
+nav ul a{text-decoration:none;color:var(--muted);font-size:.95rem}
+nav ul a:hover{color:var(--text)}
+@media(max-width:720px){nav ul{display:none}}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:2rem;align-items:center;max-width:1180px;margin:auto;padding:clamp(2.5rem,6vw,5rem) var(--pad)}
+.hero p{color:var(--muted);margin:1.4rem 0 2rem;font-size:1.15rem}
+.hero .cta{display:flex;gap:.8rem;flex-wrap:wrap}
+.hero h1 span{color:var(--flesh)}
+.hero h1 em{font-style:normal;color:var(--ice)}
+.stage{position:relative;justify-self:center;width:min(100%,360px)}
+.stage svg{width:100%;height:auto;display:block}
+.body-fill{fill:var(--steel-2);stroke:var(--flesh);stroke-width:2}
+.circuit{fill:none;stroke:var(--ice);stroke-width:1.2;opacity:.5}
+.scan{position:absolute;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--ice),transparent);box-shadow:0 0 18px var(--ice);top:0;animation:scan 4.5s ease-in-out infinite}
+@keyframes scan{0%,100%{top:2%}50%{top:98%}}
+.hot{position:absolute;width:44px;height:44px;margin:-22px 0 0 -22px;border-radius:50%;border:2px solid var(--ice);background:rgba(89,214,255,.14);cursor:pointer;color:var(--ice)}
+.hot::after{content:"";position:absolute;inset:14px;border-radius:50%;background:var(--ice)}
+.hot[aria-pressed=true]{border-color:var(--signal);background:rgba(255,79,123,.2)}
+.hot[aria-pressed=true]::after{background:var(--signal)}
+.readout{margin-top:1rem;background:var(--steel-2);border-left:3px solid var(--ice);padding:1rem 1.2rem;min-height:8.5rem}
+.readout h3{margin-bottom:.3rem}
+.readout p{font-size:.95rem;color:var(--muted)}
+.readout b{color:var(--ice);font:500 .95rem var(--display)}
+@media(max-width:860px){.hero{grid-template-columns:1fr}.stage{order:2}}
+
+/* modules */
+.band{background:var(--steel-2)}
+.tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin:1.5rem 0}
+.tabs button{font:500 1rem var(--display);padding:.6rem 1.2rem;background:transparent;color:var(--muted);border:1px solid var(--plate);cursor:pointer}
+.tabs button[aria-selected=true]{background:var(--ice);color:var(--steel);border-color:var(--ice)}
+.panel{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:center;background:var(--steel);padding:clamp(1.2rem,3vw,2.2rem);border:1px solid var(--plate)}
+.panel[hidden]{display:none}
+.panel ul{padding-left:1.1rem;color:var(--muted)}
+.panel li{margin:.4rem 0}
+.panel li::marker{color:var(--ice)}
+.panel svg{width:100%;max-width:300px;justify-self:center}
+@media(max-width:720px){.panel{grid-template-columns:1fr}}
+
+/* compare */
+.dial{margin:2rem 0 1.5rem}
+.dial label{display:flex;justify-content:space-between;font:500 1rem var(--display);margin-bottom:.6rem}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:6px;background:linear-gradient(90deg,var(--flesh),var(--ice));border-radius:3px}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;background:var(--steel);border:3px solid #fff;border-radius:3px;transform:rotate(45deg);cursor:grab}
+input[type=range]::-moz-range-thumb{width:22px;height:22px;background:var(--steel);border:3px solid #fff;border-radius:3px;cursor:grab}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1rem}
+.stat{background:var(--steel-2);padding:1.1rem 1.2rem}
+.stat output{font:700 2.2rem var(--display);display:block}
+.stat small{color:var(--muted);font-size:.9rem}
+.bar{height:6px;background:var(--plate);margin-top:.7rem}
+.bar div{height:100%;background:var(--flesh);transition:background .3s}
+.note{margin-top:1rem;color:var(--muted);font-size:.9rem}
+
+/* process */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0;margin-top:2rem;counter-reset:s}
+.steps li{list-style:none;position:relative;padding:1.4rem 1.2rem 1.4rem 0;border-top:3px solid var(--plate)}
+.steps li::before{counter-increment:s;content:counter(s);position:absolute;top:-17px;left:0;width:31px;height:31px;display:grid;place-items:center;background:var(--ice);color:var(--steel);font:700 1rem var(--display);clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
+.steps h3{margin:.8rem 0 .3rem}
+.steps p{color:var(--muted);font-size:.95rem}
+
+/* form */
+.join{max-width:620px}
+form{display:grid;gap:1rem;margin-top:1.5rem}
+form label{font-size:.95rem;color:var(--muted);display:grid;gap:.35rem}
+input[type=email],input[type=text],select{background:var(--steel);color:var(--text);border:1px solid var(--plate);padding:.85rem 1rem;font:inherit;border-radius:0}
+input:focus,select:focus{border-color:var(--ice)}
+#msg{min-height:1.6rem;color:var(--ice)}
+#msg.err{color:var(--signal)}
+footer{padding:2rem var(--pad);border-top:1px solid var(--plate);color:var(--muted);font-size:.9rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+
+@media(prefers-reduced-motion:reduce){.scan{animation:none;top:50%}html{scroll-behavior:auto}*{transition:none!important}}
+</style>
+</head>
+<body>
+<header><nav>
+  <a class="logo" href="#top"><i></i>Kindred</a>
+  <ul><li><a href="#modules">Augmentations</a></li><li><a href="#dial">Compare</a></li><li><a href="#process">Process</a></li></ul>
+  <a class="btn" href="#join">Book a consult</a>
+</nav></header>
+
+<main id="top">
+<div class="hero">
+  <div>
+    <h1>Keep what's <span>human</span>. Upgrade the <em>rest</em>.</h1>
+    <p>Kindred fits eyes, limbs and neural links that learn your body's habits instead of fighting them. Reversible for the first 12 months.</p>
+    <div class="cta"><a class="btn" href="#join">Book a consult</a><a class="btn ghost" href="#modules">See augmentations</a></div>
+  </div>
+
+  <div class="stage">
+    <div style="position:relative">
+      <svg viewBox="0 0 300 520" role="img" aria-label="Body scan showing five augmentation sites">
+        <g class="body-fill">
+          <circle cx="150" cy="60" r="38"/>
+          <rect x="132" y="94" width="36" height="22"/>
+          <path d="M92 124h116l14 150-26 6-6 90h-96l-6-90-26-6z"/>
+          <rect x="64" y="130" width="30" height="210" rx="15" transform="rotate(8 79 130)"/>
+          <rect x="206" y="130" width="30" height="210" rx="15" transform="rotate(-8 221 130)"/>
+          <rect x="108" y="370" width="38" height="140" rx="16"/>
+          <rect x="154" y="370" width="38" height="140" rx="16"/>
+        </g>
+        <path class="circuit" d="M150 22v26h30M150 124v90h-34M150 214h60v60M79 150v160M221 150v160M127 380v110M173 380v110"/>
+        <circle class="circuit" cx="150" cy="214" r="5"/>
+      </svg>
+      <div class="scan" aria-hidden="true"></div>
+      <button class="hot" style="left:50%;top:11.5%" data-k="eye" aria-pressed="true" aria-label="Optics"></button>
+      <button class="hot" style="left:50%;top:5%" data-k="neural" aria-pressed="false" aria-label="Neural link"></button>
+      <button class="hot" style="left:42%;top:30%" data-k="core" aria-pressed="false" aria-label="Cardiac assist"></button>
+      <button class="hot" style="left:25%;top:50%" data-k="arm" aria-pressed="false" aria-label="Arm"></button>
+      <button class="hot" style="left:60%;top:82%" data-k="leg" aria-pressed="false" aria-label="Leg"></button>
+    </div>
+    <div class="readout" aria-live="polite" id="readout"></div>
+  </div>
+</div>
+
+<section class="band" id="modules"><div class="wrap">
+  <h2>Five augmentations, fitted one at a time</h2>
+  <p style="color:var(--muted)">Choose a module to see what it does, how long the fitting takes and how it is maintained.</p>
+  <div class="tabs" role="tablist" id="tabs"></div>
+  <div id="panels"></div>
+</div></section>
+
+<section id="dial"><div class="wrap">
+  <h2>Slide from organic to augmented</h2>
+  <p style="color:var(--muted)">Typical results from our 2026 fitting cohort. Move the slider to see how a full set changes your baseline.</p>
+  <div class="dial">
+    <label for="mix"><span>Organic</span><span id="mixv">0% augmented</span><span>Augmented</span></label>
+    <input id="mix" type="range" min="0" max="100" value="0">
+  </div>
+  <div class="stats" id="stats"></div>
+  <p class="note">Illustrative figures for a demo page. Not medical claims.</p>
+</div></section>
+
+<section class="band" id="process"><div class="wrap">
+  <h2>From first call to first step</h2>
+  <ol class="steps" style="padding:0">
+    <li><h3>Consult</h3><p>We map your goals, health history and what you want to keep as is.</p></li>
+    <li><h3>Scan</h3><p>A 40-minute full-body scan builds your personal fit model.</p></li>
+    <li><h3>Fit</h3><p>One module at a time, with at least a month between fittings.</p></li>
+    <li><h3>Tune</h3><p>The firmware learns your movement. We review it with you weekly.</p></li>
+  </ol>
+</div></section>
+
+<section id="join"><div class="wrap join">
+  <h2>Book a consult</h2>
+  <p style="color:var(--muted)">Tell us where to reach you. A fitting specialist replies within two working days.</p>
+  <form id="form" novalidate>
+    <label>Name<input type="text" id="name" autocomplete="name" required></label>
+    <label>Email<input type="email" id="email" autocomplete="email" required></label>
+    <label>First augmentation you're considering
+      <select id="interest"><option>Optics</option><option>Neural link</option><option>Cardiac assist</option><option>Arm</option><option>Leg</option></select>
+    </label>
+    <button class="btn" type="submit">Request consult</button>
+    <p id="msg" role="status"></p>
+  </form>
+</div></section>
+</main>
+<footer><span>Kindred Augmentation Clinic</span><span>Concept design for a demo. No real clinic.</span></footer>
+
+<script>
+const mods={
+  eye:{n:"Optics",m:"Low-light and zoom vision",t:"90-minute fitting",d:"Replaces the lens and adds a thin display layer. Sees in dim rooms and zooms to 8x.",l:["Night vision down to 0.01 lux","Reads text from 30 m","Recharges while you sleep"]},
+  neural:{n:"Neural link",m:"Thought-speed interface",t:"3-hour fitting",d:"A fine mesh at the skull base lets you control devices and your other augmentations.",l:["Type at 90 words a minute by thought","Pairs with every Kindred module","Disable switch behind the ear"]},
+  core:{n:"Cardiac assist",m:"Steady heart rhythm",t:"2-hour fitting",d:"A micro-pump and sensor that smooths your heart rate under stress and during recovery.",l:["Warns you before you overdo it","10-year battery","Works with your own heartbeat"]},
+  arm:{n:"Arm",m:"Strength and precision",t:"4-hour fitting",d:"A carbon-fibre frame with 20 touch sensors per fingertip. It feels as well as lifts.",l:["Lifts 220 kg","Tremor-free fine work","Swap-in tool heads"]},
+  leg:{n:"Leg",m:"Speed and endurance",t:"4-hour fitting",d:"Spring-loaded joints that return energy on every stride and cut fatigue on long days.",l:["Runs 38 km/h","Climbs stairs at half the effort","Self-adjusting to your gait"]}
+};
+const ro=document.getElementById("readout"),hots=[...document.querySelectorAll(".hot")];
+function show(k){
+  hots.forEach(h=>h.setAttribute("aria-pressed",h.dataset.k===k));
+  const m=mods[k];ro.innerHTML=`<h3>${m.n}</h3><b>${m.m}</b><p>${m.d}</p>`;
+}
+hots.forEach(h=>h.addEventListener("click",()=>show(h.dataset.k)));show("eye");
+
+/* tabs */
+const tabs=document.getElementById("tabs"),panels=document.getElementById("panels");
+Object.entries(mods).forEach(([k,m],i)=>{
+  tabs.insertAdjacentHTML("beforeend",`<button role="tab" id="t-${k}" aria-controls="p-${k}" aria-selected="${i==0}" tabindex="${i?-1:0}">${m.n}</button>`);
+  panels.insertAdjacentHTML("beforeend",`<div class="panel" role="tabpanel" id="p-${k}" aria-labelledby="t-${k}" ${i?"hidden":""}>
+    <div><h3>${m.m}</h3><p style="color:var(--muted);margin:.6rem 0 1rem">${m.d}</p><ul>${m.l.map(x=>`<li>${x}</li>`).join("")}</ul><p style="margin-top:1rem"><b style="color:var(--ice)">${m.t}</b></p></div>
+    <svg viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="80" fill="none" stroke="var(--plate)" stroke-width="2"/><circle cx="100" cy="100" r="50" fill="none" stroke="var(--ice)" stroke-width="2" stroke-dasharray="6 8"/><circle cx="100" cy="100" r="20" fill="var(--flesh)"/><path d="M100 20v40M100 140v40M20 100h40M140 100h40" stroke="var(--ice)" stroke-width="2"/></svg>
+  </div>`);
+});
+const tb=[...tabs.children];
+function pick(b){tb.forEach(x=>{const on=x===b;x.setAttribute("aria-selected",on);x.tabIndex=on?0:-1;document.getElementById(x.getAttribute("aria-controls")).hidden=!on});b.focus()}
+tb.forEach((b,i)=>{b.onclick=()=>pick(b);b.onkeydown=e=>{if(e.key==="ArrowRight")pick(tb[(i+1)%tb.length]);if(e.key==="ArrowLeft")pick(tb[(i-1+tb.length)%tb.length])}});
+
+/* compare */
+const S=[["Reaction time","ms",250,40,true],["Lift","kg",40,220],["Night vision range","m",15,300],["Run endurance","km",10,60]];
+const st=document.getElementById("stats"),mix=document.getElementById("mix"),mv=document.getElementById("mixv");
+st.innerHTML=S.map((s,i)=>`<div class="stat"><small>${s[0]}</small><output id="o${i}"></output><div class="bar"><div id="b${i}"></div></div></div>`).join("");
+function upd(){
+  const v=+mix.value/100;mv.textContent=mix.value+"% augmented";
+  S.forEach((s,i)=>{const val=s[2]+(s[3]-s[2])*v;
+    document.getElementById("o"+i).textContent=Math.round(val)+" "+s[1];
+    const pct=s[4]?100-(val/s[2])*100*0.8:(val/s[3])*100;
+    const b=document.getElementById("b"+i);b.style.width=Math.max(6,pct)+"%";b.style.background=v>.5?"var(--ice)":"var(--flesh)"});
+}
+mix.addEventListener("input",upd);upd();
+
+/* form */
+document.getElementById("form").addEventListener("submit",e=>{
+  e.preventDefault();const m=document.getElementById("msg"),n=name.value.trim(),em=email.value.trim();
+  if(!n){m.className="err";m.textContent="Enter your name so we know who to reply to.";return}
+  if(!/^\S+@\S+\.\S+$/.test(em)){m.className="err";m.textContent="Enter a valid email, like you@example.com.";return}
+  m.className="";m.textContent=`Thanks ${n.split(" ")[0]}. We'll email you about ${interest.value.toLowerCase()} within two working days.`;e.target.reset();
+});
+</script>
+</body>
+</html>
